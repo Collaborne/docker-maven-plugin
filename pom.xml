@@ -4,11 +4,11 @@
 
   <groupId>com.spotify</groupId>
   <artifactId>docker-maven-plugin</artifactId>
-  <version>0.4.13</version>
+  <version>0.4.13-collaborne-1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>docker-maven-plugin</name>
   <description>A maven plugin for docker</description>
-  <url>https://github.com/spotify/docker-maven-plugin</url>
+  <url>https://github.com/Collaborne/docker-maven-plugin</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,16 +31,20 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:https://github.com/spotify/docker-maven-plugin</connection>
-    <developerConnection>scm:git:git@github.com:spotify/docker-maven-plugin</developerConnection>
-    <url>https://github.com/spotify/docker-maven-plugin</url>
-    <tag>v0.4.13</tag>
+    <connection>scm:git:https://github.com/Collaborne/docker-maven-plugin</connection>
+    <developerConnection>scm:git:git@github.com:Collaborne/docker-maven-plugin</developerConnection>
+    <url>https://github.com/Collaborne/docker-maven-plugin</url>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
+    <repository>
+      <id>collaborne-thirdparty-repository</id>
+      <url>s3://collaborne-repository/maven/thirdparty</url>
+    </repository>
     <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <id>collaborne-thirdparty-snapshot-repository</id>
+      <url>s3://collaborne-repository/maven/thirdparty-snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -393,18 +397,15 @@
           </dependency>
         </dependencies>
       </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.4</version>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>${autoReleaseAfterClose}</autoReleaseAfterClose>
-        </configuration>
-      </plugin>
     </plugins>
+
+    <extensions>
+      <extension>
+        <groupId>org.kuali.maven.wagons</groupId>
+        <artifactId>maven-s3-wagon</artifactId>
+        <version>1.2.1</version>
+      </extension>
+    </extensions>
   </build>
 
   <reporting>

@@ -10,8 +10,10 @@ jdk:
 
 env:
   global:
-    - SONATYPE_USERNAME=mattbrownspotify
-    - secure: "WH+C0QLvcp/NFVRngliA0F/aj0caK7/hsc1mapdApM71+Sncem1BScMpkpc3PRql8CRDjI/dDPNnqitcd89P1ros3jpAS9+qnMlzzNebWZ2oUaxIQe8iK89825sBJZhWMtOvl9LXlL6azacZuYOfNpbfCBb3t4Zi09Hi9QMlTKQ="
+    - secure: "S7bmK0FtbnaS29rfVBPpIy5XKPUBtae+P02VPdDeOT0aq1sc/xlSZxjYsfMBfZYZ0tebZ850uK9Zobwwhuymr+f0dkQL2OpVd5B1fUifP8hBh/5CzFAxt+zFUeuRZCya9AU80aY8zGjDUCccAHahvUAzppyDqD5ar5DWZ2tPA6kOGaHbCvzJ4D6EORgzZY0LbvRjFbSVz17iNZYUiSsp3W9I1wXDdOMIk6HJXIhp0mOPltBGOBco6z3XXrsY96UlmE1n0Rw3qxpd6OQeBXt+JMDJlx/eSAAwSbBoh76IkeA/ZM1LVT8LstR89C0HirQyI1/4sTr9GjY983QOuqvQuVK2ZIy7rL2NGbdiuYOcvGkTa7AaVVNnER2pSTYLchlTALHIPmYDFfXiuQ+lwU6zoi0ppWu26s7oDck+dndoEDvpA3pY++4VRoLLEiM6CxI70oSVWTPb0edun21JoGfOeb/YZq1MBqzjNK79pZfovVXNs91DxS5vZFiqn1WTEBki0cJql+qtMZ06WOgj5VbTd36fuxEHH/Aph1zzuFeyV/xDrSqjuJ6Jo/sbzwbO1hxcVfzPSzQJsCrLaK2i1x455YhPlcpX0zmJ4hwAAxng16tgAe5403UNHUP1OHnWTgVnvqi+h3bAM7WN6pcJT0uTjEhq4waNufvb8FCpyV/h+hk="
+    - secure: "V4K7vq/JyyQG0FNOyi9hWYSULJYkIpbkA4ztoYxYzEpZmK3y94l5Rv4PxTdoPNs8iFjtGMG7Qu4kUlzs/vV1fXHFs3GmX7X0RvEqex1Bj65TMCEIXC5vksJg9afi8wF+6ecmmyNyyh6/8ULHTbuVHy/o5eVqKHE5QNO7ftgk4BnK6ftcoTygljHliPdjQ44lCX4g9xQXBOYfDQoIwgyP/REJjXbloVcKr6elHmOqaJMqU31uL2x/luyoKHEnc9N+LuyNhfzzUra+NNxFyBIJFBPihM5wCxpo6ArfLfUp8nkZxTsWs8aEm1IDCFrQH1x1vzhd/qnDedfo+99n9ly3oSapzetxuv2Z7x7NWE7HGX8FhmW3Kkk17m7CR2D+2XU1FNL0uwr4FC/W8KjJaR1UdOxYlC+9Kb2QabPUhw9ZrN8Ki4/JgqIHv8quHL+fhmoTc3wFqA62D2eK5wTEdore90a42qwYvyeNWdjUks6yJHmNMfIFZ8DXe+vkAcuzuR8XI1Cfjacz66zc80aLm3esrqCP7OVfcHnzWRRVFZ+BxsVgndKE8w4odRMBs+P2q793b7/hKdv/4U2Lf35RlqIoAAQyk8JtyQMN3A5AyMdfnlhlUF+LPcaUsJ7VZTngvGeIQLxhiNkIp/Ts9gO2VGIkGuW9DRu5qA2TGXrW3tCS8zo="
+    - secure: "a6DTN+mvcaMb27UPqn91GepJPINZTC1RsltCsKqwet0LNwD+bkYjTc8OrMvRI0Dd3uZPBrHS9fKRJQ8W2qcGtJJGJPJiI9OWPK9UXZb1MatnoINxWzgc6Ch8ZyuR+8jixrThZpYTS/GSSXFHRFBrtSRYlTo1KB0rCGHgnUWriwlS8FBdsU5vUOD/ssVmNj7a4Yx49zl3HKy6rDI0cbPjH/d4YGlApGV5tfIc3uJsIoUKGB2o7OUYsYDTfwxv2j+aOa/GbSijMGJUq1Sqq1mjZdqDnwK9JpMJWSINtHFgXqpwqRLAkR+aBpyka/K5sm6egs5eXXyKXLHLUfBqksIVyX0lrRBNV3up4EAqW9L4rPC/ago5LBmVhfYdEs5tIHDaGucyZrsr+L0UFlARy8eG7/+2kiv8BAWA5hvjVU27oGITWc+fCUu+cqupR5Tf7syEm48RKuPT0o+CR4udkdha84rpZ9BdClTVHgKJlboCy7MpfFtAZbia2LF08AZo+J8O6+VMIr1AdTKnXV31vSUIptwrmJ7vaezk9wVvA0+BY5H1IxYXBpCN3c8u2wPeBC6j6nnppZDj+gOlzAxjJgFQtQcVFz1lSLcI13o7G6H8D9n5rpcesJ/2pP+IVBrIzwpd/1ZKxd63e0hAPSFzhnkEEgzSdTihsmnp+hbWB7C0ogk="
+
 
 branches:
   only:
@@ -25,5 +27,5 @@ before_install:
 after_success:
   # test coverage reporting
   - bash <(curl -s https://codecov.io/bash)
-  # deploy snapshots to Maven central, but only from master branch
-  - "[[ $TRAVIS_BRANCH == \"master\" ]] && mvn --settings sonatype-settings.xml -DskipTests -B deploy"
+  # deploy snapshots to our own repository
+  - "[[ $TRAVIS_BRANCH == \"master\" ]] && mvn --settings deploy-settings.xml -DskipTests -B deploy"
