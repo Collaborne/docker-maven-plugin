@@ -1,8 +1,7 @@
 *FORK TO INCLUDE THE FIX FOR #293 - USE THE ORIGINAL PLUGIN INSTEAD OF THIS ONE UNLESS YOU KNOW WHAT YOU'RE DOING*
 
 # docker-maven-plugin
-[![Travis CI](https://travis-ci.org/spotify/docker-maven-plugin.svg?branch=master)](https://travis-ci.org/spotify/docker-maven-plugin/) 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.spotify/docker-maven-plugin/badge.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/com.spotify/docker-maven-plugin/)
+[![Travis CI](https://travis-ci.org/Collaborne/docker-maven-plugin.svg?branch=master)](https://travis-ci.org/Collaborne/docker-maven-plugin/)
 
 
 A Maven plugin for building and pushing Docker images.
