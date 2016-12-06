@@ -21,8 +21,8 @@
 
 package com.spotify.docker;
 
-import com.spotify.docker.client.AnsiProgressHandler;
 import com.spotify.docker.client.DockerClient;
+import com.spotify.docker.client.ProgressHandler;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.spotify.docker.client.messages.AuthConfig;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
@@ -51,7 +51,7 @@ public class PushMojoTest extends AbstractMojoTestCase {
     assertNotNull(mojo);
     final DockerClient docker = mock(DockerClient.class);
     mojo.execute(docker);
-    verify(docker).push(eq("busybox"), any(AnsiProgressHandler.class));
+    verify(docker).push(eq("busybox"), any(ProgressHandler.class));
   }
 
   public void testFailingPushWithRetries() throws Exception {
@@ -62,9 +62,9 @@ public class PushMojoTest extends AbstractMojoTestCase {
 
     final DockerClient docker = mock(DockerClient.class);
     doThrow(new DockerException("Expected")).when(docker).push(any(String.class),
-                                                               any(AnsiProgressHandler.class));
+                                                               any(ProgressHandler.class));
     verifyException(mojo, DockerException.class).execute(docker);
-    verify(docker, times(4)).push(eq("busybox"), any(AnsiProgressHandler.class));
+    verify(docker, times(4)).push(eq("busybox"), any(ProgressHandler.class));
   }
 
   public void testPushPrivateRepo() throws Exception {
@@ -82,7 +82,7 @@ public class PushMojoTest extends AbstractMojoTestCase {
 
     mojo.execute(docker);
     verify(docker)
-        .push(eq("dxia3/docker-maven-plugin-auth"), any(AnsiProgressHandler.class));
+        .push(eq("dxia3/docker-maven-plugin-auth"), any(ProgressHandler.class));
   }
 
   public void testPushSkipPush() throws Exception {
@@ -96,7 +96,7 @@ public class PushMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker, never())
-        .push(anyString(), any(AnsiProgressHandler.class));
+        .push(anyString(), any(ProgressHandler.class));
   }
 
   public void testPushSkipDocker() throws Exception {

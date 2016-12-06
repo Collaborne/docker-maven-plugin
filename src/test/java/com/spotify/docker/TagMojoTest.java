@@ -21,8 +21,8 @@
 
 package com.spotify.docker;
 
-import com.spotify.docker.client.AnsiProgressHandler;
 import com.spotify.docker.client.DockerClient;
+import com.spotify.docker.client.ProgressHandler;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.mockito.ArgumentCaptor;
 
@@ -49,7 +49,7 @@ public class TagMojoTest extends AbstractMojoTestCase {
     final DockerClient docker = mock(DockerClient.class);
     mojo.execute(docker);
     verify(docker).tag("imageToTag", "newRepo:newTag", false);
-    verify(docker).push(eq("newRepo:newTag"), any(AnsiProgressHandler.class));
+    verify(docker).push(eq("newRepo:newTag"), any(ProgressHandler.class));
   }
 
   public void testTag2() throws Exception {
