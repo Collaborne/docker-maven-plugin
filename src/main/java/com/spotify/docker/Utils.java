@@ -21,7 +21,6 @@
 
 package com.spotify.docker;
 
-import com.spotify.docker.client.AnsiProgressHandler;
 import com.spotify.docker.client.DockerClient;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.spotify.docker.client.ProgressHandler;
@@ -80,7 +79,7 @@ public class Utils {
 
     int attempt = 0;
     do {
-      final AnsiProgressHandler ansiProgressHandler = new AnsiProgressHandler();
+      final ProgressHandler ansiProgressHandler = new MavenLogProgressHandler(log);
       final DigestExtractingProgressHandler handler = new DigestExtractingProgressHandler(
               ansiProgressHandler);
 
@@ -130,7 +129,7 @@ public class Utils {
     for (final String imageTag : compositeImageName.getImageTags()) {
       final String imageNameWithTag = compositeImageName.getName() + ":" + imageTag;
       log.info("Pushing " + imageNameWithTag);
-      docker.push(imageNameWithTag, new AnsiProgressHandler());
+      docker.push(imageNameWithTag, new MavenLogProgressHandler(log));
     }
   }
 

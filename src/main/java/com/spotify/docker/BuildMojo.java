@@ -31,8 +31,8 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
-import com.spotify.docker.client.AnsiProgressHandler;
 import com.spotify.docker.client.DockerClient;
+import com.spotify.docker.client.ProgressHandler;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
@@ -97,10 +97,10 @@ public class BuildMojo extends AbstractDockerMojo {
   private static final char WINDOWS_SEPARATOR = '\\';
 
   /**
-   * Json Object Mapper to encode arguments map 
+   * Json Object Mapper to encode arguments map
    */
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-  
+
   /**
    * Directory containing the Dockerfile. If the value is not set, the plugin will generate a
    * Dockerfile using the required baseImage value, plus the optional entryPoint, cmd and maintainer
@@ -247,8 +247,8 @@ public class BuildMojo extends AbstractDockerMojo {
   private MavenProject mavenProject;
 
   @Parameter(property = "dockerBuildArgs")
-  private Map<String, String> buildArgs;  
-  
+  private Map<String, String> buildArgs;
+
   private PluginParameterExpressionEvaluator expressionEvaluator;
 
   public BuildMojo() {
@@ -572,7 +572,8 @@ public class BuildMojo extends AbstractDockerMojo {
                           final DockerClient.BuildParam... buildParams)
       throws MojoExecutionException, DockerException, IOException, InterruptedException {
     getLog().info("Building image " + imageName);
-    docker.build(Paths.get(buildDir), imageName, new AnsiProgressHandler(), buildParams);
+    final ProgressHandler progressHandler = new MavenLogProgressHandler(getLog());
+    docker.build(Paths.get(buildDir), imageName, progressHandler, buildParams);
     getLog().info("Built " + imageName);
   }
 
@@ -798,7 +799,7 @@ public class BuildMojo extends AbstractDockerMojo {
     return path.replace(WINDOWS_SEPARATOR, UNIX_SEPARATOR);
   }
 
-  private DockerClient.BuildParam[] buildParams() 
+  private DockerClient.BuildParam[] buildParams()
     throws UnsupportedEncodingException, JsonProcessingException {
     final List<DockerClient.BuildParam> buildParams = Lists.newArrayList();
     if (pullOnBuild) {
@@ -811,7 +812,7 @@ public class BuildMojo extends AbstractDockerMojo {
         buildParams.add(DockerClient.BuildParam.rm(false));
       }
     if (!buildArgs.isEmpty()) {
-      buildParams.add(DockerClient.BuildParam.create("buildargs", 
+      buildParams.add(DockerClient.BuildParam.create("buildargs",
         URLEncoder.encode(OBJECT_MAPPER.writeValueAsString(buildArgs), "UTF-8")));
     }
     return buildParams.toArray(new DockerClient.BuildParam[buildParams.size()]);
