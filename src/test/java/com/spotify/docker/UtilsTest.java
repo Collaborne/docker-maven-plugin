@@ -21,8 +21,8 @@
 
 package com.spotify.docker;
 
-import com.spotify.docker.client.AnsiProgressHandler;
 import com.spotify.docker.client.DockerClient;
+import com.spotify.docker.client.ProgressHandler;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.junit.Test;
@@ -88,6 +88,6 @@ public class UtilsTest {
     final DockerBuildInformation buildInfo = mock(DockerBuildInformation.class);
     Utils.pushImage(dockerClient, IMAGE, log, buildInfo, 0, 1, false);
 
-    verify(dockerClient).push(eq(IMAGE), any(AnsiProgressHandler.class));
+    verify(dockerClient).push(eq(IMAGE), any(ProgressHandler.class));
   }
 }

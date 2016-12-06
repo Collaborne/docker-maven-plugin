@@ -168,7 +168,7 @@ public class BuildMojoTest extends AbstractMojoTestCase {
 
     mojo.execute(docker);
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                         any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
     assertFilesCopied();
 
     assertEquals("wrong dockerfile contents", GENERATED_DOCKERFILE_WITH_VOLUMES,
@@ -183,7 +183,7 @@ public class BuildMojoTest extends AbstractMojoTestCase {
 
     mojo.execute(docker);
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                         any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
     assertFilesCopied();
 
     assertEquals("wrong dockerfile contents", GENERATED_DOCKERFILE_WITH_LABELS,
@@ -198,7 +198,7 @@ public class BuildMojoTest extends AbstractMojoTestCase {
 
     mojo.execute(docker);
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                         any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
     assertFilesCopied();
   }
 
@@ -211,7 +211,7 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
     verify(docker).build(
         eq(Paths.get("target/docker")), eq("busybox"),
-        any(AnsiProgressHandler.class),
+        any(ProgressHandler.class),
         eq(DockerClient.BuildParam.create("buildargs", "%7B%22VERSION%22%3A%220.1%22%7D")));
     assertFilesCopied();
   }
@@ -224,8 +224,8 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                         any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox"), any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
+    verify(docker).push(eq("busybox"), any(ProgressHandler.class));
   }
 
   public void testBuildWithPushCompositeImageNameNoTag() throws Exception {
@@ -236,8 +236,8 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox:compositeNameTag"),
-                         any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:compositeNameTag"), any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:compositeNameTag"), any(ProgressHandler.class));
   }
 
   public void testDigestWrittenOnBuildWithPush() throws Exception {
@@ -263,8 +263,8 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                         any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox"), any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
+    verify(docker).push(eq("busybox"), any(ProgressHandler.class));
 
     assertFileExists(mojo.tagInfoFile);
 
@@ -297,8 +297,8 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox:sometag"),
-                         any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:sometag"), any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:sometag"), any(ProgressHandler.class));
 
     assertFileExists(mojo.tagInfoFile);
 
@@ -316,7 +316,7 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                         any(AnsiProgressHandler.class), any(BuildParam.class));
+                         any(ProgressHandler.class), any(BuildParam.class));
   }
 
   public void testBuildWithPushTag() throws Exception {
@@ -327,8 +327,8 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                         any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:latest"), any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:latest"), any(ProgressHandler.class));
   }
 
   public void testBuildWithMultiplePushTag() throws Exception {
@@ -339,10 +339,10 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                         any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:late"), any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:later"), any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:latest"), any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:late"), any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:later"), any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:latest"), any(ProgressHandler.class));
   }
 
   public void testBuildWithMultiplePushTagButNoTagsSpecified() throws Exception {
@@ -375,11 +375,11 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox:compositeTag"),
-                         any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:compositeTag"), any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:late"), any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:later"), any(AnsiProgressHandler.class));
-    verify(docker).push(eq("busybox:latest"), any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:compositeTag"), any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:late"), any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:later"), any(ProgressHandler.class));
+    verify(docker).push(eq("busybox:latest"), any(ProgressHandler.class));
   }
 
   public void testBuildWithInvalidPushTag() throws Exception {
@@ -408,7 +408,7 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                         any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
     assertFilesCopied();
     assertEquals("wrong dockerfile contents", GENERATED_DOCKERFILE,
                  Files.readAllLines(Paths.get("target/docker/Dockerfile"), UTF_8));
@@ -423,7 +423,7 @@ public class BuildMojoTest extends AbstractMojoTestCase {
       mojo.execute(docker);
 
       verify(docker).build(eq(Paths.get("target/docker")), eq("busybox"),
-                           any(AnsiProgressHandler.class));
+                           any(ProgressHandler.class));
       assertFilesCopied();
       assertEquals("wrong dockerfile contents", GENERATED_DOCKERFILE_WITH_SQUASH_COMMANDS,
                    Files.readAllLines(Paths.get("target/docker/Dockerfile"), UTF_8));
@@ -437,7 +437,7 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker).build(eq(Paths.get("target/docker")), eq("test-copied-directory"),
-        any(AnsiProgressHandler.class));
+        any(ProgressHandler.class));
 
     final List<String> expectedDockerFileContents = ImmutableList.of(
         "FROM busybox",
@@ -461,7 +461,7 @@ public class BuildMojoTest extends AbstractMojoTestCase {
 
     verify(docker).build(eq(Paths.get("target/docker")),
                          eq("docker-maven-plugin-test"),
-                         any(AnsiProgressHandler.class));
+                         any(ProgressHandler.class));
     assertFileExists("target/docker/xml/pom-build-with-profile.xml");
     assertFileExists("target/docker/Dockerfile");
     assertEquals("wrong dockerfile contents", PROFILE_GENERATED_DOCKERFILE,
@@ -547,9 +547,9 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker, never())
-        .build(any(Path.class), anyString(), any(AnsiProgressHandler.class));
+        .build(any(Path.class), anyString(), any(ProgressHandler.class));
     verify(docker, never())
-        .push(anyString(), any(AnsiProgressHandler.class));
+        .push(anyString(), any(ProgressHandler.class));
   }
 
   public void testBuildWithSkipDocker() throws Exception {
@@ -569,9 +569,9 @@ public class BuildMojoTest extends AbstractMojoTestCase {
     mojo.execute(docker);
 
     verify(docker)
-        .build(eq(Paths.get("target/docker")), eq("busybox"), any(AnsiProgressHandler.class));
+        .build(eq(Paths.get("target/docker")), eq("busybox"), any(ProgressHandler.class));
     verify(docker, never())
-        .push(anyString(), any(AnsiProgressHandler.class));
+        .push(anyString(), any(ProgressHandler.class));
   }
 
   private BuildMojo setupMojo(final File pom) throws Exception {
